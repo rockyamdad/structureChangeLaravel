@@ -1,7 +1,6 @@
 <?php
 namespace App\Passport;
 
-use App\Passport\Models\Passport;
 use App\Passport\Repositories\PassportRepository;
 use Illuminate\Http\Request;
 
@@ -9,37 +8,48 @@ class PassportService
 {
 	public function __construct(PassportRepository $passport)
 	{
-		$this->passport = $passport ;
+		$this->passportRepo = $passport ;
 	}
 
-	public function index()
+	public function getAppointments()
 	{
-		return $this->passport->all();
+		return $this->passportRepo->all();
 	}
 
-    public function createAppointment($attributes)
+    public function createAppointment(array $attributes)
 	{
-
-        if($request->hasfile('filename'))
+        // Image move
+        if($attributes['filename'])
          {
             $file = $attributes['filename'];
             $name=time().$file->getClientOriginalName();
-            $file->move(public_path().'/public/images/', $name);
+            $file->move(public_path().'/images/', $name);
          }
-
-        $passport= new \App\Passport\Models\Passport;
-        $passport->name=$request->get('name');
-        $passport->email=$request->get('email');
-        $passport->number=$request->get('number');
-        $date=date_create($request->get('date'));
+        
+        $date = date_create($attributes['date']);
         $format = date_format($date,"Y-m-d");
-        $passport->date = strtotime($format);
-        $passport->office=$request->get('office');
-        $passport->filename=$name;
-        $passport->save();
 
-        $this->passport->create($attributes);
-        return $passport;
-	}
+        $attributes['date'] = strtotime($format);
+        $attributes['filename'] = $name;
+
+        // Data save by repository
+        $this->passportRepo->create($attributes);
+    }
+    
+    public function findPassport($id)
+	{
+		return $this->passportRepo->find($id);
+    }
+
+    public function updateAppointment(array $attributes, $id)
+	{
+	    $this->passportRepo->update($id, $attributes);
+    }
+    
+    
+    public function deletePassport($id)
+    {
+        $this->passportRepo->delete($id);
+    }    
 }
 ?>

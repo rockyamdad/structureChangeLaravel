@@ -11,9 +11,9 @@ class PassportRepository
   {
     $this->passport = $passport;
   }
-    public function create($attributes)
+  public function create($attributes)
   {
-    return $this->passport->create($attributes);
+    $this->passport->create($attributes);
   }
   
   public function all()
@@ -21,18 +21,18 @@ class PassportRepository
     return $this->passport->all();
   }
 
-//   public function find($id)
-//   {
-//    return $this->post->find($id);
-//   }
+  public function find($id)
+  {
+    return $this->passport->find($id);
+  }
   
-//   public function update($id, array $attributes)
-//   {
-//   return $this->post->find($id)->update($attributes);
-//   }
+  public function update($id, array $attributes)
+  {
+     $this->passport->find($id)->update($attributes);
+  }
  
-//   public function delete($id)
-//   {
-//    return $this->post->find($id)->delete();
-//   }
+  public function delete($id)
+  {
+    return $this->passport->find($id)->delete();
+  }
 }
