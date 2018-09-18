@@ -19,4 +19,4 @@ Route::get('/index', function () {
     return view('index');
 });
 
-
+Route::resource('passports','Passport\PassportController');

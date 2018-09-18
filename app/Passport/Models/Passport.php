@@ -1,10 +1,10 @@
 <?php
 
-namespace App\User\Models;
+namespace App\Passport\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Test extends Model
+class Passport extends Model
 {
     //
 }
