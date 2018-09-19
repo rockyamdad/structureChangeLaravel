@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class UserEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $data;
+    //protected $data;
 
     /**
      * Create a new message instance.
@@ -31,8 +31,7 @@ class UserEmail extends Mailable
     {
         $subject = 'Demo Email';
         $message = $this->data;
-        return $this->view('Passport.confirmation')
-                    ->subject($subject)
-                    ->with('message');
+        return $this->view('Passport.confirmation',compact('message'))
+                    ->subject($subject);
     }
 }

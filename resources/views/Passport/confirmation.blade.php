@@ -6,7 +6,8 @@
     	</head>
     	<body>
     		<h2>Confirmation</h2>
-    		<p>{{ $message }}</p>
+    		<p>Message send</p>
+			{{$message}}
     	</body>
     </html>
 
